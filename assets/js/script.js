@@ -9,7 +9,13 @@ const playerTwo = document.querySelector('.player--1');
 const nameOne = document.querySelector('#name--0');
 const nameTwo = document.querySelector('#name--1');
 nameOne.textContent = prompt('Enter player 1 name:');
-nameTwo.textContent = prompt('Enter player two name:');
+nameTwo.textContent = prompt('Enter player 2 name:');
+if (!nameOne.textContent) {
+  nameOne.textContent = 'Player 1';
+}
+if (!nameTwo.textContent) {
+  nameTwo.textContent = 'player 2';
+}
 let randomDice = () => Math.trunc(Math.random() * 6) + 1;
 const players = {
   0: [0, 0],
@@ -73,13 +79,12 @@ function holdScore() {
     players[player][0];
 }
 function switchPlayers(player) {
-  if (player === '0') {
-    playerOne.classList.remove('player--active');
-    playerTwo.classList.add('player--active');
-  } else {
-    playerTwo.classList.remove('player--active');
-    playerOne.classList.add('player--active');
-  }
+  document
+    .querySelector(`.player--${player}`)
+    .classList.remove('player--active');
+  document
+    .querySelector(`.player--${player === '0' ? '1' : '0'}`)
+    .classList.add('player--active');
 }
 function resetGame() {
   diceImage.style.display = 'none';
