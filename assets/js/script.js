@@ -10,6 +10,7 @@ const nameOne = document.querySelector('#name--0');
 const nameTwo = document.querySelector('#name--1');
 nameOne.textContent = prompt('Enter player 1 name:');
 nameTwo.textContent = prompt('Enter player 2 name:');
+let isFinished = false;
 if (!nameOne.textContent) {
   nameOne.textContent = 'Player 1';
 }
@@ -22,17 +23,9 @@ const players = {
   1: [0, 0],
 };
 diceImage.style.display = 'none';
-function checkStatus() {
-  if (
-    playerOne.classList.contains('player--winner') ||
-    playerTwo.classList.contains('player--winner')
-  ) {
-    return true;
-  }
-  return false;
-}
+
 function rollDice() {
-  if (checkStatus()) {
+  if (isFinished) {
     return;
   }
   diceImage.style.display = 'block';
@@ -54,7 +47,7 @@ function rollDice() {
   }
 }
 function holdScore() {
-  if (checkStatus()) {
+  if (isFinished) {
     return;
   }
   let player = playerOne.classList.contains('player--active') ? '0' : '1';
@@ -70,6 +63,7 @@ function holdScore() {
     document.querySelector(`#score--${player}`).textContent =
       players[player][1];
     document.querySelector(`#current--${player}`).textContent = 0;
+    isFinished = true;
     return;
   }
   switchPlayers(player);
